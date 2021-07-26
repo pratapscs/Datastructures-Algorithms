@@ -1,8 +1,8 @@
 package com.datastructures.tree;
 
-public class Node {	
+public class Node1 {
 	int data;
-	Node left;
-	Node right;
+	Node1 left;
+	Node1 right;
 
 }

@@ -1,5 +1,6 @@
 package com.datastructures.list;
 
+// every node stores address or reference of next node in list and the last node has next address or reference as NULL.
 public class SinglyLinkedList {
 
 	private ListNode head;
@@ -16,7 +17,7 @@ public class SinglyLinkedList {
 
 	public void display() {
 		ListNode current = head;
-		while(current != null) {
+		while (current != null) {
 			System.out.print(current.data + " --> ");
 			current = current.next;
 		}
@@ -24,12 +25,12 @@ public class SinglyLinkedList {
 	}
 
 	public int length() {
-		if(head == null) {
+		if (head == null) {
 			return 0;
 		}
 		int count = 0;
 		ListNode current = head;
-		while(current != null) {
+		while (current != null) {
 			count++;
 			current = current.next;
 		}
@@ -42,19 +43,19 @@ public class SinglyLinkedList {
 		head = newNode;
 	}
 
-	public void insert(int position, int value){
+	public void insert(int position, int value) {
 		// 1 -> 4 -> 5
 		// 1 -> 6 -> 4 -> 5
 		ListNode node = new ListNode(value);
 
-		if(position == 1){
+		if (position == 1) {
 			node.next = head;
 			head = node;
 		} else {
 			ListNode previous = head;
 			int count = 1; // position - 1
 
-			while(count < position - 1){
+			while (count < position - 1) {
 				previous = previous.next;
 				count++;
 			}
@@ -63,7 +64,6 @@ public class SinglyLinkedList {
 			previous.next = node;
 			node.next = current;
 		}
-
 
 	}
 
@@ -81,7 +81,7 @@ public class SinglyLinkedList {
 	}
 
 	public ListNode deleteFirst() {
-		if(head == null) {
+		if (head == null) {
 			return null;
 		}
 		ListNode temp = head;
@@ -90,15 +90,15 @@ public class SinglyLinkedList {
 		return temp;
 	}
 
-	public void delete(int position){
+	public void delete(int position) {
 		// position is valid and starting from 1
 		// 3 -> 4 -> 7 -> 8 -> 9 -> null
-		if(position == 1){
+		if (position == 1) {
 			head = head.next;
 		} else {
 			ListNode previous = head;
 			int count = 1;
-			while(count < position - 1){
+			while (count < position - 1) {
 				previous = previous.next;
 				count++;
 			}
@@ -109,11 +109,11 @@ public class SinglyLinkedList {
 	}
 
 	public ListNode deleteLast() {
-		if(head == null) {
+		if (head == null) {
 			return head;
 		}
 
-		if(head.next == null) {
+		if (head.next == null) {
 			ListNode temp = head;
 			head = head.next;
 			return temp;
@@ -122,7 +122,7 @@ public class SinglyLinkedList {
 		ListNode current = head;
 		ListNode previous = null;
 
-		while(current.next != null) {
+		while (current.next != null) {
 			previous = current;
 			current = current.next;
 		}
@@ -131,13 +131,13 @@ public class SinglyLinkedList {
 	}
 
 	public boolean find(int searchKey) {
-		if(head == null) {
+		if (head == null) {
 			return false;
 		}
 
 		ListNode current = head;
-		while(current != null) {
-			if(current.data == searchKey) {
+		while (current != null) {
+			if (current.data == searchKey) {
 				return true;
 			}
 			current = current.next;
@@ -146,7 +146,7 @@ public class SinglyLinkedList {
 	}
 
 	public ListNode reverse() {
-		if(head == null) {
+		if (head == null) {
 			return null;
 		}
 
@@ -154,7 +154,7 @@ public class SinglyLinkedList {
 		ListNode previous = null;
 		ListNode next = null;
 
-		while(current != null) {
+		while (current != null) {
 			next = current.next;
 			current.next = previous;
 			previous = current;
@@ -164,13 +164,13 @@ public class SinglyLinkedList {
 	}
 
 	public ListNode getMiddleNode() {
-		if(head == null) {
+		if (head == null) {
 			return null;
 		}
 		ListNode slowPtr = head;
 		ListNode fastPtr = head;
 
-		while(fastPtr != null && fastPtr.next != null) {
+		while (fastPtr != null && fastPtr.next != null) {
 			slowPtr = slowPtr.next;
 			fastPtr = fastPtr.next.next;
 		}
@@ -178,11 +178,11 @@ public class SinglyLinkedList {
 	}
 
 	public ListNode getNthNodeFromEnd(int n) {
-		if(head == null) {
+		if (head == null) {
 			return null;
 		}
 
-		if(n <= 0) {
+		if (n <= 0) {
 			throw new IllegalArgumentException("Invalid value: n = " + n);
 		}
 
@@ -191,15 +191,15 @@ public class SinglyLinkedList {
 
 		int count = 0;
 
-		while(count < n) {
-			if(refPtr == null) {
+		while (count < n) {
+			if (refPtr == null) {
 				throw new IllegalArgumentException(n + " is greater than the number of nodes in list");
 			}
 			refPtr = refPtr.next;
 			count++;
 		}
 
-		while(refPtr != null) {
+		while (refPtr != null) {
 			refPtr = refPtr.next;
 			mainPtr = mainPtr.next;
 		}
@@ -209,7 +209,7 @@ public class SinglyLinkedList {
 	public ListNode insertInSortedList(int value) {
 		ListNode newNode = new ListNode(value);
 
-		if(head == null) {
+		if (head == null) {
 			return newNode;
 		}
 
@@ -230,32 +230,32 @@ public class SinglyLinkedList {
 		ListNode current = head;
 		ListNode temp = null;
 
-		if(current != null && current.data == key){
+		if (current != null && current.data == key) {
 			head = current.next;
 			return;
 		}
 
-		while(current != null && current.data != key){
+		while (current != null && current.data != key) {
 			temp = current;
 			current = current.next;
 		}
 
-		if(current == null){
+		if (current == null) {
 			return;
 		}
 
 		temp.next = current.next;
 	}
-	
+
 	public boolean containsLoop() {
 		ListNode fastPtr = head;
 		ListNode slowPtr = head;
-		
-		while(fastPtr != null && fastPtr.next != null) {
+
+		while (fastPtr != null && fastPtr.next != null) {
 			fastPtr = fastPtr.next.next;
 			slowPtr = slowPtr.next;
-			
-			if(fastPtr == slowPtr) {
+
+			if (fastPtr == slowPtr) {
 				return true;
 			}
 		}
@@ -266,11 +266,11 @@ public class SinglyLinkedList {
 		ListNode fastPtr = head;
 		ListNode slowPtr = head;
 
-		while(fastPtr != null && fastPtr.next != null) {
+		while (fastPtr != null && fastPtr.next != null) {
 			fastPtr = fastPtr.next.next;
 			slowPtr = slowPtr.next;
 
-			if(fastPtr == slowPtr) {
+			if (fastPtr == slowPtr) {
 				return getStartingNode(slowPtr);
 			}
 		}
@@ -279,7 +279,7 @@ public class SinglyLinkedList {
 
 	private ListNode getStartingNode(ListNode slowPtr) {
 		ListNode temp = head;
-		while(temp != slowPtr){
+		while (temp != slowPtr) {
 			temp = temp.next;
 			slowPtr = slowPtr.next;
 		}
@@ -290,11 +290,11 @@ public class SinglyLinkedList {
 		ListNode fastPtr = head;
 		ListNode slowPtr = head;
 
-		while(fastPtr != null && fastPtr.next != null) {
+		while (fastPtr != null && fastPtr.next != null) {
 			fastPtr = fastPtr.next.next;
 			slowPtr = slowPtr.next;
 
-			if(fastPtr == slowPtr) {
+			if (fastPtr == slowPtr) {
 				removeLoop(slowPtr);
 				return;
 			}
@@ -303,7 +303,7 @@ public class SinglyLinkedList {
 
 	private void removeLoop(ListNode slowPtr) {
 		ListNode temp = head;
-		while(temp.next != slowPtr.next){
+		while (temp.next != slowPtr.next) {
 			temp = temp.next;
 			slowPtr = slowPtr.next;
 		}
@@ -317,7 +317,7 @@ public class SinglyLinkedList {
 		ListNode fourth = new ListNode(4);
 		ListNode fifth = new ListNode(5);
 		ListNode sixth = new ListNode(6);
-		
+
 		head = first;
 		first.next = second;
 		second.next = third;
@@ -345,7 +345,6 @@ public class SinglyLinkedList {
 		System.out.println(sll.deleteLast().data);
 
 		sll.display();
-
 
 	}
 }
