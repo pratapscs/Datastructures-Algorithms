@@ -1,55 +1,78 @@
 package com.datastructures.sorting;
 
+/**
+ * http://en.wikipedia.org/wiki/Merge_sort
+ * Test cases
+ * 1 element
+ * 2 element
+ * negative numbers
+ * already sorted
+ * reverse sorted
+ */
 public class MergeSort {
 
-    public void printArray(int[] arr) {
-        int n = arr.length;
-        for(int i = 0; i < n; i++) {
-            System.out.print(arr[i] + " ");
+    public void sort(int input[]){
+        sort(input, 0, input.length-1);
+    }
+    
+    private void sort(int input[], int low, int high){
+        if(low >= high){
+            return;
+        }
+        
+        int middle = (low + high)/2;
+        sort(input, low, middle);
+        sort(input, middle+1, high);
+        sortedMerge(input,low,high);
+   }
+    
+    private void sortedMerge(int input[], int low, int high){
+        int middle = (low+high)/2;
+        int temp[] = new int[high-low+1];
+        int i = low;
+        int j = middle+1;
+        int r = 0;
+        while(i <= middle && j <= high){
+            if(input[i] <= input[j]){
+                temp[r++] = input[i++];
+            }else{
+                temp[r++] = input[j++];
+            }
+        }
+        while(i <= middle){
+            temp[r++] = input[i++];
+        }
+        
+        while(j <= high){
+            temp[r++] = input[j++];
+        }
+        i = low;
+        for(int k=0; k < temp.length;){
+            input[i++] = temp[k++];
+        }
+    }
+    
+    public void printArray(int input[]){
+        for(int i : input){
+            System.out.print(i + " ");
         }
         System.out.println();
     }
-
-    public void sort(int[] arr, int[] temp, int low, int high){
-        if(low < high){ // base case
-            int mid = low + (high - low) / 2; // overflow condition (low + high) / 2;
-            sort(arr, temp, low, mid);
-            sort(arr, temp, mid + 1, high);
-            merge(arr, temp, low, mid, high);
-        }
-    }
-
-    private void merge(int[] arr, int[] temp, int low, int mid, int high) {
-        for(int i = low; i <= high; i++){
-            temp[i] = arr[i];
-        }
-        int i = low; // traverse left sorted subarray
-        int j = mid + 1; // traverse right sorted subarray
-        int k = low; // will merge both arrays into original array (arr)
-
-        while(i <= mid && j <= high){
-            if(temp[i] <= temp[j]){
-                arr[k] = temp[i];
-                i++;
-            } else {
-                arr[k] = temp[j];
-                j++;
-            }
-            k++;
-        }
-
-        while(i <= mid){
-            arr[k] = temp[i];
-            k++;
-            i++;
-        }
-    }
-
-    public static void main(String[] args) {
-        int[] arr = new int[] {9, 5, 2, 4, 3, -1};
+    
+    public static void main(String args[]){
+        int input1[] = {1};
+        int input2[] = {4,2};
+        int input3[] = {6,2,9};
+        int input4[] = {6,-1,10,4,11,14,19,12,18};
         MergeSort ms = new MergeSort();
-        ms.sort(arr, new int[arr.length], 0, arr.length - 1);
-        ms.printArray(arr);
+        ms.sort(input1);
+        ms.sort(input2);
+        ms.sort(input3);
+        ms.sort(input4);
+        
+        ms.printArray(input1);
+        ms.printArray(input2);
+        ms.printArray(input3);
+        ms.printArray(input4);
     }
-
 }
